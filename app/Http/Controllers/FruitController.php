@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fruit;
+use App\Models\Banner;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -11,15 +12,16 @@ class FruitController extends Controller
     public function index(Request $request)
     {
         $query = Fruit::query();
-
+    
         if ($request->filled('category')) {
             $query->where('category_id', $request->input('category'));
         }
     
         $fruits = $query->get();
         $categories = Category::all();
+        $banners = Banner::all(); // Thêm dòng này để lấy tất cả banner
     
-        return view('fruits.index', compact('fruits', 'categories'));
+        return view('fruits.index', compact('fruits', 'categories', 'banners'));
     }
 
     public function show(Fruit $fruit)
@@ -53,7 +55,7 @@ class FruitController extends Controller
     
         Fruit::create($validated);
     
-        return redirect()->route('fruits.index')->with('success', 'Fruit added successfully!');
+        return redirect()->route('admin.index')->with('success', 'Thêm thành công');
     }
 
     public function edit(Fruit $fruit)
@@ -80,12 +82,12 @@ class FruitController extends Controller
     
         $fruit->update($validated);
     
-        return redirect()->route('fruits.show', $fruit)->with('success', 'Fruit updated successfully!');
+        return redirect()->route('admin.index', $fruit)->with('success', 'Cập nhật thành công');
     }
 
     public function destroy(Fruit $fruit)
     {
         $fruit->delete();
-        return redirect()->route('fruits.index')->with('success', 'Fruit deleted successfully!');
+        return redirect()->route('admin.index')->with('success', 'Xóa thành công');
     }
 }

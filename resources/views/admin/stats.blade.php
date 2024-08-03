@@ -1,12 +1,12 @@
 @extends('admin.layout')
 
 @section('content')
-    <h1>Statistics</h1>
+    <h1>Số liệu thống kê</h1>
     <div class="row">
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Total Fruits</h5>
+                    <h5 class="card-title">Tổng số trái cây đã mua</h5>
                     <p class="card-text">{{ $totalFruits }}</p>
                 </div>
             </div>
@@ -14,7 +14,7 @@
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Total Stock</h5>
+                    <h5 class="card-title">Số lượng</h5>
                     <p class="card-text">{{ $totalStock }}</p>
                 </div>
             </div>

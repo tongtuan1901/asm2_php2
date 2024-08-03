@@ -6,9 +6,11 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\FruitController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+
 
 Route::get('/', function () {
     return redirect()->route('fruits.index');
@@ -58,3 +60,9 @@ Route::post('register', [RegisteredUserController::class, 'store']);
 
 Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
     ->name('logout');
+
+    //quản lí banner
+   
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::resource('banners', BannerController::class);
+    });

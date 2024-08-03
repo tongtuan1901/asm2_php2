@@ -1,8 +1,38 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1 class="mb-4">Danh sách hoa quả</h1>
-    
+    <!-- Hiển thị banner marketing -->
+    @if($banners->isNotEmpty())
+        <div id="bannerCarousel" class="carousel slide mb-4">
+            <div class="carousel-inner">
+                @foreach($banners as $index => $banner)
+                    <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                        <div class="d-flex flex-column align-items-center">
+                            @if($banner->image)
+                                <img src="{{ asset('storage/' . $banner->image) }}" alt="{{ $banner->title }}" class="d-block w-100" style="max-height: 400px; object-fit: cover;">
+                            @endif
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>{{ $banner->title }}</h5>
+                                <p>{{ $banner->content }}</p>
+                                @if($banner->link)
+                                    <a href="{{ $banner->link }}" class="btn btn-primary" target="_blank">Xem chi tiết</a>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#bannerCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#bannerCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    @endif
+
     @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ session('success') }}
@@ -12,6 +42,7 @@
 
     <!-- Phần danh mục -->
     <div class="mb-4">
+    <h1 class="mb-4">Danh sách hoa quả</h1>
         <form action="{{ route('fruits.index') }}" method="GET">
             <div class="form-group">
                 <label for="category">Chọn danh mục:</label>
